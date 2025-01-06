@@ -6,9 +6,9 @@ import { useSearch } from './hooks/useSearch';
 //const api_endpoint = ''
 
 function App() {
-
+  const [sort, setSort] = useState()
   const { search, setSearch, error } = useSearch();
-  const { movies: mappedMovies, loading, getMovies } = useMovies({ search });
+  const { movies: mappedMovies, loading, getMovies } = useMovies({ search, sort });
 
   const handleChange = (event) => {
 
@@ -25,7 +25,9 @@ function App() {
 
     getMovies()
   }
-
+  const handleSort = () => {
+    setSort(!sort);
+  }
 
   return (
     <>
@@ -35,6 +37,7 @@ function App() {
           <h1>Buscador de peliculas</h1>
           <form className='form' onSubmit={handleSubmit}>
             <input onChange={handleChange} name="query" value={search} placeholder='Star Wars, Fight club ... ' />
+            <input type="checkbox" onChange={handleSort} name="" id="" />
             <button type="submit">Buscar</button>
           </form>
           {error && <p style={{ color: 'red' }}>{error}</p>}
